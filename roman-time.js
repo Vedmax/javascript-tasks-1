@@ -141,38 +141,42 @@ var romanGraphicDecims = [
 var romanDigits = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
 var romanDecims = ['', 'X', 'XX', 'XXX', 'XL', 'L'];
 
-function parseNumber(number){
-    if (number === "00")
+function parseNumber(number) {
+    if (number === 0)
         return "--";
     var digits = number % 10;
     var decims = (number - digits)/ 10;
     return romanDecims[decims] + romanDigits[digits];
 }
 
-function draw(hours, minutes){
+function draw(hours, minutes) {
     var hoursDigits = romanGraphicDigits[hours % 10];
     var hoursDecims = romanGraphicDecims[(hours - (hours % 10)) / 10];
     var minutesDigits = romanGraphicDigits[minutes % 10];
     var minutesDecims = romanGraphicDecims[(minutes - (minutes % 10)) / 10];
 
-    if (hours == '00'){
+    if (hours == 0) {
         hoursDigits = hoursDecims = graphicZero;
     }
-    if (minutes == '00'){
+    if (minutes == 0) {
         minutesDigits = minutesDecims = graphicZero;
     }
 
-    for (var i = 0; i < 5; i++){
+    for (var i = 0; i < 5; i++) {
         console.log(hoursDecims[i], hoursDigits[i], graphicColon[i],
             minutesDecims[i], minutesDigits[i]);
     }
 }
 
-function main(){
-    if (hours > 23 || minutes > 59 || hours < 0 || minutes < 0){
+function main() {
+    if (hours > 23 || minutes > 59 || hours < 0 || minutes < 0 ||
+        Math.floor(hours) != hours || Math.floor(minutes) != minutes) {
         console.log('Время указано не верно');
         return;
     }
+    
+    hours = parseInt(hours);
+    minutes = parseInt(minutes);
 
     var res = parseNumber(hours) + ':' + parseNumber(minutes);
     console.log(res);
