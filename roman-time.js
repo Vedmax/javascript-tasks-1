@@ -120,7 +120,7 @@ var romanGraphicDecims = [
         '\\   \\/  /\\   \\/  /\\   \\/  / ',
         ' \\     /  \\     /  \\     /  ',
         ' /     \\  /     \\  /     \\  ',
-        '/___/\\__\\/___/\\__\\/___/\\__\\'
+        '/___/\\__\\/___/\\__\\/___/\\__\\ '
     ],
     [
         '____  ___.____     ',
@@ -142,8 +142,9 @@ var romanDigits = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
 var romanDecims = ['', 'X', 'XX', 'XXX', 'XL', 'L'];
 
 function parseNumber(number) {
-    if (number === 0)
+    if (number === 0) {
         return "--";
+    }
     var digits = number % 10;
     var decims = (number - digits)/ 10;
     return romanDecims[decims] + romanDigits[digits];
@@ -169,14 +170,14 @@ function draw(hours, minutes) {
 }
 
 function main() {
+    hours = Number(hours);
+    minutes = Number(minutes);
+
     if (hours > 23 || minutes > 59 || hours < 0 || minutes < 0 ||
-        Math.floor(hours) != hours || Math.floor(minutes) != minutes) {
+        Math.floor(hours) !== hours || Math.floor(minutes) !== minutes) {
         console.log('Время указано не верно');
         return;
     }
-    
-    hours = parseInt(hours);
-    minutes = parseInt(minutes);
 
     var res = parseNumber(hours) + ':' + parseNumber(minutes);
     console.log(res);
